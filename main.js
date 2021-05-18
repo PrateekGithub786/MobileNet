@@ -24,4 +24,22 @@ function takeSnapshot() {
     });
 }
 
-console.log('ml5 version:', ml5.version);
+console.log('ml5 version:', ml5.version);classifier = ml5.imageClassifier('MobileNet', modelLoaded);
+
+function modelLoaded(){
+    console.log("model loaded");
+}
+
+function identifyImage(){
+    img = document.getElementById("captured_img");
+    classifier.classify(img, gotResult);
+}
+
+function gotResult(error, results){
+    if(error){
+        console.error(error);
+    } else{
+        console.log(results);
+        document.getElementById("object_name").innerHTML = results[0].label;
+    }
+}
